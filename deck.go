@@ -12,7 +12,7 @@ type deck []string
 
 func newDeck() deck {
 	var cards deck
-	cardSuits := []string{"Spades", "Herts", "Diamonds", "Clubs"}
+	cardSuits := []string{"Spades", "Hearts", "Diamonds", "Clubs"}
 	cardValues := []string{"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"}
 
 	for _, suit := range cardSuits {
@@ -40,4 +40,16 @@ func (d deck) toString() string {
 
 func (d deck) saveToFile(filename string) error {
 	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
+}
+
+func newDeckFromFile(filename string) deck {
+	bs, err := ioutil.ReadFile(filename)
+
+	if err != nil {
+		fmt.Println(err)
+		return newDeck()
+	}
+
+	s := strings.Split(string(bs), ",")
+	return deck(s)
 }
