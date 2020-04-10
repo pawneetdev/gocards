@@ -3,10 +3,9 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"strings"
 )
-
-// Create a new deck type which is a slice of strings
 
 type deck []string
 
@@ -52,4 +51,17 @@ func newDeckFromFile(filename string) deck {
 
 	s := strings.Split(string(bs), ",")
 	return deck(s)
+}
+
+func (d deck) shuffle() deck {
+	var temp string
+
+	for i := range d {
+		random := rand.Intn(len(d) - 1) // rand.Intn is a pseudo random generator, same everytime(Check documentation)
+		temp = d[i]
+		d[i] = d[random]
+		d[random] = temp
+	}
+
+	return d
 }

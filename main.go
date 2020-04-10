@@ -9,7 +9,7 @@ func main() {
 	// fmt.Println(cards.toString())
 	remainingCards.saveToFile("my_cards")
 	cards = newDeckFromFile("my_cards")
-
+	cards.shuffle()
 	cards.print()
 }
 
